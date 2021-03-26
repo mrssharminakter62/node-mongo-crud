@@ -26,13 +26,13 @@ client.connect(err => {
   app.get('/products', (req, res) => {
     productCollection.find({})
     .toArray(  (err, documents)=>{
-        console.log(err, documents)
+        // console.log(err, documents)
         res.send(documents);
     })
   });
 
 app.get('/product/:id', (req, res)=>{
-    productCollection.find({_id: objectId(req.params.id)})
+    productCollection.find({_id: ObjectId(req.params.id)})
     .toArray( (err, documents)=> {
         res.send(documents[0]);
     })
@@ -43,7 +43,6 @@ app.get('/product/:id', (req, res)=>{
      const product = req.body;
      productCollection.insertOne(product)
      .then(result =>{
-         console.log('data added success');
         res.redirect('/');
      })
  
@@ -51,9 +50,9 @@ app.get('/product/:id', (req, res)=>{
 
 
  app.patch('/update/:id', (req, res) =>{
-     productCollection.updateOne({_id:objectId(req.params.id)},
+     productCollection.updateOne({_id:ObjectId(req.params.id)},
      {
-         $set:{price:req.body.price, quantity: req.body.quantity}
+         $set:{price: req.body.price, quantity: req.body.quantity}
      })
      .then(result =>{
        res.send(result.modifiedCount > 0)
@@ -63,7 +62,7 @@ app.get('/product/:id', (req, res)=>{
 
  app.delete('/delete/:id', (req, res)=>{
     //  console.log(req.params.id);
-    productCollection.deleteOne({_id:ojectId(req.params.id)})
+    productCollection.deleteOne({_id:ObjectId(req.params.id)})
     .then(result =>{
        res.send(result.deletedCount > 0);
     })

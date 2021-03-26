@@ -14,21 +14,15 @@
     <input type="text" placeholder="quantity" name="quantity" >
     <button type="submit">Add Product</button>
     </form>
-    <div id="products">
-
-    </div>
-    <div id="update">
-
-    </div>
+    <div id="products"> </div>
+    <div id="update"> </div>
     <script>
       function loadAllProducts(){
         fetch('/products')
         .then(res => res.json())
         .then(products => {
-            console.log(products);
             const container = document.getElementById('products');
             container.innerHTML = '';
-            console.log(container);
             products.forEach(pd => {
                 const p = document.createElement('p');
                 p.innerHTML= `<strong>${pd.name}</strong>..price:${pd.price} quantity:${pd.quantity}
@@ -45,7 +39,9 @@ function loadProduct(id){
     fetch(`product/${id}`)
     .then(res => res.json())
     .then(data =>{
-         `
+        const update = document.getElementById('update');
+
+        update.innerHTML = `
         <h3>Update: ${data._id}</h3>
        Price: <input type="text" value = "${data.price}" id="price">
         <br>
@@ -77,7 +73,7 @@ function updateProduct(id){
    
 }
 
-      function deleteProduct(event, id){
+function deleteProduct(event, id){
         fetch(`/delete/${id}`,{
             method:'DELETE'
         })
