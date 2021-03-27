@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const MongoClient = require('mongodb').MongoClient;
-const objectId = require('mongodb').objectId;
+const ObjectId = require('mongodb').ObjectId;
 
 const password = 'test123';
 
